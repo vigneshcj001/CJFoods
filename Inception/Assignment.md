@@ -97,3 +97,8 @@ Both attributes are used with `<script>` tags to control when and how external J
 
 **Key Difference**:  
 `async` runs as soon as it's downloaded, while `defer` ensures execution happens after HTML parsing.
+
+# How to add the file and push to github
+git add .   
+git commit -m "1st commit"
+git push -u origin main   
