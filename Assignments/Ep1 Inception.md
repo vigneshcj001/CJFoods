@@ -1,4 +1,4 @@
-### What is Emmet?  
+ ### What is Emmet?  
 Emmet is a powerful toolkit for web developers that allows you to write HTML and CSS code faster using abbreviations that expand into full-fledged code snippets. It is integrated into many text editors and IDEs (e.g., VS Code). For instance, typing `div.container>ul>li*3` and hitting Tab expands into:  
 ```html
 <div class="container">
