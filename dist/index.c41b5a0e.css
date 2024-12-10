@@ -1,0 +1,252 @@
+@import "https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto+Slab:wght@500&family=Ysabeau+Office:wght@600&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto+Slab:wght@500&family=Ysabeau+Office:wght@600&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto+Slab:wght@500&family=Ysabeau+Office:wght@600&display=swap";
+.header {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  display: flex;
+}
+
+.logo {
+  cursor: pointer;
+  width: 130px;
+}
+
+.nav-bar-container {
+  padding: 25px 50px;
+}
+
+.nav-items {
+  list-style-type: none;
+  display: flex;
+}
+
+.nav-items li {
+  color: #3f3f3f;
+  margin: 20px;
+  padding: 10px;
+  font-family: Roboto Slab, serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nav-items li:hover {
+  color: #009aff;
+  cursor: pointer;
+}
+
+.login-btn {
+  color: #fff;
+  text-align: center;
+  background-color: #009aff;
+  border: none;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 10px 20px;
+  font-family: Roboto Slab, serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.login-btn:hover {
+  background-color: #007acc;
+  border: 1px solid #fff;
+}
+
+.body {
+  padding: 60px 50px;
+  display: flex;
+}
+
+.animation-content {
+  color: #009aff;
+  padding: 20px 50px;
+  font-family: Ysabeau Office, sans-serif;
+  font-size: 49px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.body-para {
+  padding: 0 50px;
+  font-size: 20px;
+}
+
+.body-para, .body-button {
+  padding: 20px 50px;
+  font-family: Ysabeau Office, sans-serif;
+  font-weight: 500;
+}
+
+.body-img {
+  cursor: pointer;
+}
+
+.btn {
+  padding: 15px 50px 75px;
+  display: inline-block;
+}
+
+.body-button {
+  all: unset;
+  color: #f0f0f0;
+  cursor: pointer;
+  z-index: 1;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  background: none;
+  border: none;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  display: flex;
+  position: relative;
+}
+
+.body-button:before, .body-button:after {
+  content: "";
+  z-index: -99999;
+  transition: all .4s;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.body-button:before {
+  background: #28282d;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  transform: translate(0%);
+}
+
+.body-button:after {
+  -webkit-backdrop-filter: blur(5px);
+  background: #ffffff15;
+  border-radius: 50px;
+  width: 35px;
+  height: 35px;
+  transform: translate(10px, 10px);
+}
+
+.body-button:hover:before {
+  width: 110%;
+  height: 110%;
+  transform: translate(5%, 20%);
+}
+
+.body-button:hover:after {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  transform: translate(0);
+}
+
+.body-button:active:after {
+  transition: all;
+  transform: translate(0, 5%);
+}
+
+@media (width <= 1028px) {
+  .body {
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .animation-content {
+    text-align: center;
+    word-break: break-word;
+    font-size: 20px;
+  }
+
+  .body-button {
+    width: 50px;
+    height: 15px;
+  }
+
+  .btn {
+    align-items: center;
+    padding: 40px 50px;
+  }
+
+  .body-para, .body-button {
+    font-size: 10px;
+  }
+
+  .body-img-container {
+    width: 200px;
+    height: 20px;
+  }
+
+  .body-img {
+    width: 200px;
+    padding-top: 30px;
+  }
+}
+
+.food-title {
+  padding: 0 100px;
+  font-weight: 600;
+}
+
+.food-title:hover:before {
+  content: "CJ";
+  color: #009aff;
+}
+
+.horizontal-line {
+  border: 1px solid #eef0f5;
+  width: 100%;
+}
+
+.restaurant-container {
+  padding: 100px 20px;
+}
+
+.filter {
+  justify-content: space-between;
+  padding: 25px 20px;
+  display: flex;
+}
+
+.search {
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  display: flex;
+}
+
+.search-box {
+  border-radius: 12px;
+  width: 300px;
+  height: 35px;
+}
+
+.search-btn, .filter-btn {
+  cursor: pointer;
+  background-color: #eef0f5;
+  border: none;
+  border-radius: 12px;
+  width: 100px;
+  height: 35px;
+  font-family: Kanit, sans-serif;
+  font-weight: 700;
+}
+
+.search-btn:hover, .filter-btn:hover {
+  color: #fff;
+  background-color: #009aff;
+}
+
+.top-rated {
+  padding: 0 230px;
+}
+/*# sourceMappingURL=index.c41b5a0e.css.map */

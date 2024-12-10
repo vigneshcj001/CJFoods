@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto+Slab:wght@500&family=Ysabeau+Office:wght@600&display=swap');
+
+.food-title {
+    font-weight: 600;
+    padding: 0px 100px;
+}
+.food-title:hover::before {
+    content: "CJ";
+    color: #009aff;
+}
+.horizontal-line {
+    border: 1px solid #eef0f5;
+    width: 100%;
+}
+.restaurant-container {
+    padding: 100px 20px;
+}
+.filter {
+    display: flex;
+    padding: 25px 20px;
+    justify-content: space-between;
+}
+.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.search-box {
+    height: 35px;
+    border-radius: 12px;
+    width: 300px;
+}
+.search-btn,
+.filter-btn {
+    border: none; 
+    background-color: #eef0f5;
+    height: 35px;
+    width: 100px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-family: 'Kanit', sans-serif;
+    cursor: pointer;
+}
+.search-btn:hover,
+.filter-btn:hover {
+    background-color: #009aff;
+    color: #fff;
+}
+.top-rated{
+    padding: 0px 230px;
+}

@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto+Slab:wght@500&family=Ysabeau+Office:wght@600&display=swap');
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+.logo {
+    width: 130px;
+    cursor: pointer;
+}
+.nav-bar-container{
+    padding: 25px 50px;
+}
+.nav-items {
+    display: flex;
+    list-style-type: none;
+}
+.nav-items li {
+    padding: 10px;
+    margin: 20px;
+    color: #3f3f3f;
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    font-weight: 500;
+}
+.nav-items li:hover{
+    color: #009aff;
+    cursor: pointer;
+}
+.login-btn {
+    padding: 10px 20px;
+    margin: 20px;
+    background-color: #009aff;
+    color: white;
+    border-radius: 5px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+    font-weight: 500;
+    border: none;
+    text-align: center;
+}
+.login-btn:hover {
+    background-color: #007acc;
+    border: 1px solid white;
+  }
+  
