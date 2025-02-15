@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "../index.css";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
@@ -21,33 +21,57 @@ const App = () => {
 
   // Simulate fetching user data on component mount
   useEffect(() => {
-    setUserName("Vignesh"); // Example user data
+    const data = { name: "Vignesh" }; // Example data
+    setUserName(data.name);
   }, []);
 
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-        <Router>
+        <div>
           <Header />
-          <Routes>
-            <Route path="/" element={<Body />} />
-            <Route path="/restaurants" element={<RestaurantSection />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route
-              path="/restaurants/:restaurantId"
-              element={<RestaurantMenu />}
-            />
-            <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="*" element={<ErrorWrapper />} />
-          </Routes>
-        </Router>
+          <Outlet />
+        </div>
       </UserContext.Provider>
     </Provider>
   );
 };
 
+// Define routes for the application
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorWrapper />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/restaurants",
+        element: <RestaurantSection />,
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs />,
+      },
+      {
+        path: "/restaurants/:restaurantId",
+        element: <RestaurantMenu />,
+      },
+      {
+        path: "/contactus",
+        element: <ContactUs />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
+  },
+]);
+
 // Render the React application
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(<RouterProvider router={appRouter} />);
