@@ -10,68 +10,55 @@ const typingPhrases = [
 
 const Body = () => {
   const [currentText, setCurrentText] = useState("");
-  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
 
   useEffect(() => {
-    let currentTyping = "";
-    let isDeleting = false;
-    let charIndex = 0;
-
-    const type = () => {
-      const fullPhrase = typingPhrases[phraseIndex];
-
-      if (isDeleting) {
-        currentTyping = fullPhrase.substring(0, charIndex - 1);
-        charIndex--;
+    const typeText = () => {
+      if (charIndex < typingPhrases[index].length) {
+        setCurrentText((prev) => prev + typingPhrases[index][charIndex]);
+        setCharIndex((prev) => prev + 1);
       } else {
-        currentTyping = fullPhrase.substring(0, charIndex + 1);
-        charIndex++;
-      }
-
-      setCurrentText(currentTyping);
-
-      if (!isDeleting && currentTyping === fullPhrase) {
-        isDeleting = true;
-        setTimeout(type, 2000); // Pause at end
-      } else if (isDeleting && currentTyping === "") {
-        isDeleting = false;
-        setPhraseIndex((prev) => (prev + 1) % typingPhrases.length);
-      } else {
-        const typingSpeed = isDeleting ? 50 : 120;
-        setTimeout(type, typingSpeed);
+        setTimeout(() => {
+          setCurrentText("");
+          setCharIndex(0);
+          setIndex((prev) => (prev + 1) % typingPhrases.length);
+        }, 1500);
       }
     };
 
-    const timeoutId = setTimeout(type, 120);
-    return () => clearTimeout(timeoutId);
-  }, [phraseIndex]);
+    const timeout = setTimeout(typeText, 100);
+    return () => clearTimeout(timeout);
+  }, [charIndex, index]);
 
   return (
-    <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-6 py-16">
+    <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between px-10 py-20">
       {/* Text Section */}
-      <div className="flex-1 text-center lg:text-left p-4">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-400 mb-4 h-20">
+      <div className="flex-1 p-7">
+        <h1 className="text-4xl font-medium text-blue-500 mb-4">
           {currentText}
-          <span className="inline-block bg-blue-500 w-1 h-12 align-middle animate-pulse ml-1"></span>
+          <span className="inline-block bg-textPrimary w-1 h-6 animate-pulse ml-1"></span>
         </h1>
-        <p className="text-lg text-gray-600 font-sans mt-4 mb-8 max-w-xl mx-auto lg:mx-0">
+        <p className="text-lg font-sans mt-4 mb-6">
           Your one-stop destination for a culinary adventure! Order now and
           indulge in a world of flavors, delivered right to your doorstep.
         </p>
-        <Link
-          to="/restaurants"
-          className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:shadow-xl transition-all duration-300"
-        >
-          Order Now
-        </Link>
+        <div className="flex flex-col lg:flex-row gap-4">
+          <Link
+            to="/restaurants"
+            className="px-6 py-3 bg-blue-500 text-white text-sm font-semibold rounded-lg shadow-md hover:bg-indigo-500 transition-all"
+          >
+            Order Now
+          </Link>
+        </div>
       </div>
 
       {/* Image Section */}
-      <div className="flex-1 mt-12 lg:mt-0 flex justify-center items-center">
+      <div className="flex-1 mt-8 lg:mt-0 flex justify-center items-center">
         <img
           src={BodyImg}
-          alt="A delicious spread of food from CJFoods"
-          className="w-full max-w-md lg:max-w-xl transform hover:scale-105 transition-transform duration-500"
+          alt="CJFoods"
+          className="w-full max-w-lg lg:max-w-xl cursor-pointer"
         />
       </div>
     </div>
