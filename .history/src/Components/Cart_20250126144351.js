@@ -1,9 +1,7 @@
-import React, { useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useMemo } from "react";
+import { useSelector } from "react-redux";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
-import { clearCart, removeItemFromCart } from "../Utils/cartSlice";
-
 // AddressCard Component
 const AddressCard = ({ onSubmit }) => {
   const [address, setAddress] = useState("");
@@ -38,10 +36,11 @@ const AddressCard = ({ onSubmit }) => {
   );
 };
 
-// PaymentCard Component 
+// PaymentCard Component
 const PaymentCard = ({ onSubmit }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
 
+  // Memoize payment options to prevent unnecessary re-renders
   const paymentOptions = useMemo(
     () => [
       { value: "credit", label: "Credit Card" },
@@ -53,7 +52,7 @@ const PaymentCard = ({ onSubmit }) => {
 
   const handleSubmit = () => {
     onSubmit(paymentMethod);
-    setPaymentMethod("");
+    setPaymentMethod(""); // Reset selection after submission
   };
 
   return (
@@ -87,74 +86,12 @@ const PaymentCard = ({ onSubmit }) => {
 };
 
 // CartSummary Component
-const CartSummary = ({ items }) => {
-  const dispatch = useDispatch();
-
-  const handleClearCart = () => {
-    dispatch(clearCart());
-  };
-
-  const handleRemoveItem = (item) => {
-    dispatch(removeItemFromCart({ id: item.card.info.id }));
-  };
-
-  const total = items.reduce((acc, item) => {
-    const price = item.card.info.price || item.card.info.defaultPrice || 0;
-    return acc + price;
-  }, 0);
-
-  return (
-    <div className="bg-white p-6 shadow-lg rounded-md w-full md:w-1/2">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl font-bold">Cart Summary</h1>
-        {items.length > 0 && (
-          <button
-            onClick={handleClearCart}
-            className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition-all"
-          >
-            Clear Cart
-          </button>
-        )}
-      </div>
-
-      {items.length === 0 ? (
-        <p className="text-gray-600">
-          Your cart is empty. Add some items to get started!
-        </p>
-      ) : (
-        <>
-          <ul className="divide-y divide-gray-200">
-            {items.map((item) => {
-              const { id, name, price, defaultPrice } = item.card.info;
-              const finalPrice = price || defaultPrice || 0;
-
-              return (
-                <li key={id} className="flex justify-between items-center py-3">
-                  <span className="font-medium text-gray-700">{name}</span>
-                  <div className="flex items-center gap-4">
-                    <span className="font-semibold">₹{finalPrice / 100}</span>
-                    <button
-                      onClick={() => handleRemoveItem(item)}
-                      className="text-red-500 hover:text-red-700 font-bold"
-                    >
-                      X
-                    </button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          <div className="mt-6 pt-4 border-t">
-            <div className="flex justify-between items-center font-bold text-lg">
-              <span>Total</span>
-              <span>₹{total / 100}</span>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-};
+const CartSummary = ({ items }) => (
+  <div className="bg-white p-6 shadow-lg rounded-md w-full md:w-1/2">
+    <h1 className="text-xl font-bold">Cart Summary</h1>
+    H1
+  </div>
+);
 
 // Cart Component
 const Cart = () => {

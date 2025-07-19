@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 import { IoLocationSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
-import { clearCart, removeItemFromCart } from "../Utils/cartSlice";
+import { clearCart, removeItemFromCart } from "../Utils/cartSlice"; // Import cart actions
 
-// AddressCard Component
+// AddressCard Component (remains the same)
 const AddressCard = ({ onSubmit }) => {
   const [address, setAddress] = useState("");
 
@@ -38,7 +38,7 @@ const AddressCard = ({ onSubmit }) => {
   );
 };
 
-// PaymentCard Component 
+// PaymentCard Component (remains the same)
 const PaymentCard = ({ onSubmit }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
 
@@ -86,7 +86,7 @@ const PaymentCard = ({ onSubmit }) => {
   );
 };
 
-// CartSummary Component
+// CORRECTED CartSummary Component
 const CartSummary = ({ items }) => {
   const dispatch = useDispatch();
 
@@ -95,6 +95,8 @@ const CartSummary = ({ items }) => {
   };
 
   const handleRemoveItem = (item) => {
+    // Note: Your remove reducer expects an id, ensure your payload is correct
+    // For this example, I am assuming the id is at item.card.info.id
     dispatch(removeItemFromCart({ id: item.card.info.id }));
   };
 

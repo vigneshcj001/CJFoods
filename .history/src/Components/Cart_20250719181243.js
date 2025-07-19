@@ -1,18 +1,16 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdPayment } from "react-icons/md";
-import { clearCart, removeItemFromCart } from "../Utils/cartSlice";
+import { clearCart, removeItemFromCart } from "../Utils/cartSlice"; // Make sure to import actions
 
-// AddressCard Component
+// AddressCard Component (No changes needed)
 const AddressCard = ({ onSubmit }) => {
   const [address, setAddress] = useState("");
-
   const handleSubmit = () => {
     onSubmit(address);
-    setAddress(""); // Clear input field after submission
+    setAddress("");
   };
-
   return (
     <div className="flex items-start space-x-4 bg-white p-6 shadow-lg rounded-md mb-4 w-full md:w-1/2">
       <div className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full">
@@ -38,10 +36,9 @@ const AddressCard = ({ onSubmit }) => {
   );
 };
 
-// PaymentCard Component 
+// PaymentCard Component (No changes needed)
 const PaymentCard = ({ onSubmit }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
-
   const paymentOptions = useMemo(
     () => [
       { value: "credit", label: "Credit Card" },
@@ -50,12 +47,10 @@ const PaymentCard = ({ onSubmit }) => {
     ],
     []
   );
-
   const handleSubmit = () => {
     onSubmit(paymentMethod);
     setPaymentMethod("");
   };
-
   return (
     <div className="flex items-start space-x-4 bg-white p-6 shadow-lg rounded-md mb-4 w-full md:w-1/2">
       <div className="flex items-center justify-center w-10 h-10 bg-gray-600 rounded-full">
@@ -86,7 +81,7 @@ const PaymentCard = ({ onSubmit }) => {
   );
 };
 
-// CartSummary Component
+// --- THIS IS THE CORRECTED COMPONENT ---
 const CartSummary = ({ items }) => {
   const dispatch = useDispatch();
 
@@ -95,12 +90,13 @@ const CartSummary = ({ items }) => {
   };
 
   const handleRemoveItem = (item) => {
+    // Dispatching with the correct payload format { id: ... }
     dispatch(removeItemFromCart({ id: item.card.info.id }));
   };
 
-  const total = items.reduce((acc, item) => {
+  const totalAmount = items.reduce((sum, item) => {
     const price = item.card.info.price || item.card.info.defaultPrice || 0;
-    return acc + price;
+    return sum + price;
   }, 0);
 
   return (
@@ -110,44 +106,45 @@ const CartSummary = ({ items }) => {
         {items.length > 0 && (
           <button
             onClick={handleClearCart}
-            className="px-4 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition-all"
+            className="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600"
           >
             Clear Cart
           </button>
         )}
       </div>
 
+      {/* Conditional Rendering: Show items or an empty message */}
       {items.length === 0 ? (
-        <p className="text-gray-600">
-          Your cart is empty. Add some items to get started!
-        </p>
+        <p className="text-gray-500">Your cart is empty.</p>
       ) : (
         <>
           <ul className="divide-y divide-gray-200">
             {items.map((item) => {
               const { id, name, price, defaultPrice } = item.card.info;
-              const finalPrice = price || defaultPrice || 0;
-
+              const itemPrice = (price || defaultPrice || 0) / 100;
               return (
-                <li key={id} className="flex justify-between items-center py-3">
-                  <span className="font-medium text-gray-700">{name}</span>
+                <li key={id} className="flex justify-between items-center py-2">
+                  <span className="text-gray-800">{name}</span>
                   <div className="flex items-center gap-4">
-                    <span className="font-semibold">₹{finalPrice / 100}</span>
+                    <span className="font-semibold">
+                      ₹{itemPrice.toFixed(2)}
+                    </span>
                     <button
                       onClick={() => handleRemoveItem(item)}
-                      className="text-red-500 hover:text-red-700 font-bold"
+                      className="text-red-500 font-bold hover:text-red-700"
+                      aria-label={`Remove ${name}`}
                     >
-                      X
+                      ×
                     </button>
                   </div>
                 </li>
               );
             })}
           </ul>
-          <div className="mt-6 pt-4 border-t">
-            <div className="flex justify-between items-center font-bold text-lg">
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="flex justify-between items-center text-lg font-bold">
               <span>Total</span>
-              <span>₹{total / 100}</span>
+              <span>₹{(totalAmount / 100).toFixed(2)}</span>
             </div>
           </div>
         </>
@@ -156,7 +153,7 @@ const CartSummary = ({ items }) => {
   );
 };
 
-// Cart Component
+// Cart Component (Main component, no changes needed here)
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
 
@@ -172,13 +169,10 @@ const Cart = () => {
     <div>
       <h1 className="font-bold text-center text-2xl mb-6">Cart</h1>
       <div className="flex flex-col md:flex-row md:space-x-10 space-y-6 md:space-y-0 ml-6 md:ml-48 mt-11">
-        {/* Left Section: Address and Payment Cards */}
         <div className="flex flex-col flex-1 space-y-4">
           <AddressCard onSubmit={handleAddressSubmit} />
           <PaymentCard onSubmit={handlePaymentSubmit} />
         </div>
-
-        {/* Right Section: Cart Summary */}
         <div className="flex-1">
           <CartSummary items={cartItems} />
         </div>
